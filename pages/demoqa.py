@@ -12,7 +12,7 @@ class DemoQa(BasePage):
         self.icon = WebElement(driver, locator='#app > header > a')
         self.bth_element = WebElement(driver, locator='#app > div > div > div.home-body > div > div:nth-child(1)')
         self.footer_text = WebElement(driver, locator='#app > footer > span')
-
+        self.h5 = WebElement(driver, locator='div h5')
 
 
 

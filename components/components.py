@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
 
 
 class WebElement:
@@ -26,6 +27,9 @@ class WebElement:
     def click_force(self):
         self.driver.execute_script("arguments[0].click();", self.find_element())
 
+    def is_enabled(self):
+        return self.find_element().is_enabled()
+
     def exist(self):
         try:
             self.find_element()
@@ -35,6 +39,9 @@ class WebElement:
 
     def visible(self):
         return self.find_element().is_displayed()
+
+    def send_keys(self, text: str):
+        self.find_element().send_keys(text)
 
     def scroll_to_elements(self):
         self.driver.execute_script("window.scrollTo(0, document.bode.scrollHeight);", self.find_element())
@@ -49,6 +56,10 @@ class WebElement:
         if len(value) > 0:
             return value
         return True
+
+    def clear(self):
+        self.find_element().send_keys(Keys.CONTROL + 'a')
+        self.find_element().send_keys(Keys.DELETE)
 
     def check_css(self, style, value=''):
         return self.find_element().value_of_css_property(style) == value

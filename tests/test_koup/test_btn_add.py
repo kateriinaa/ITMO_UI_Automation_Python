@@ -1,11 +1,21 @@
 from pages.internet_herokuapp import InternetHeroku
 from pages.internet_herokuapp_add_remove_elements import InternetHerokuAddRemove
+import pytest
+import allure
 
 
+@allure.feature('InternetHeroku page')
+@allure.story('Checking elements')
+@allure.severity(allure.severity_level.NORMAL)
 def test_bth(browser):
 
     page = InternetHeroku(driver=browser)
     add_remove_page = InternetHerokuAddRemove(driver=browser)
+
+    if page.code_status() != 200:
+        pytest.skip(reason=f'Page {page.base_url} is unavailable')
+    if add_remove_page.code_status() != 200:
+        pytest.skip(reason=f'Page {add_remove_page.base_url} is unavailable')
 
     page.visit()
     assert page.link.get_text() == 'Add/Remove Elements'
